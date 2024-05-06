@@ -18,11 +18,10 @@ body {
     transition: background .2s ease-in-out;
     font-family: Menlo, monospace;
     display: grid;
-    padding: 32px;
+    margin: 0;
     justify-content: center;
-    padding-top: 32px;
-    padding: 16px;
     position: relative;
+    height: 100vh;
 }
 
 #sun-icon {
