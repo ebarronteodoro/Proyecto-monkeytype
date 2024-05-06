@@ -1,0 +1,251 @@
+:root {
+    color-scheme: light dark;
+    --green: #00b755;
+    --yellow: #daaf38;
+    --red: #ca4754;
+    --black: #222;
+    --gray: #999;
+
+    --green-light: #3dbb77;
+    --yellow-light: #f0b854;
+    --red-light: #e37c8a;
+    --black-light: #f3f3f3;
+    --gray-light: #777777;
+}
+
+body {
+    background: var(--black);
+    transition: background .2s ease-in-out;
+    font-family: Menlo, monospace;
+    display: grid;
+    padding: 32px;
+    justify-content: center;
+    padding-top: 32px;
+    padding: 16px;
+    position: relative;
+}
+
+#sun-icon {
+    display: none;
+    position: absolute;
+    color: var(--black);
+}
+
+#moon-icon {
+    position: absolute;
+    color: var(--gray);
+}
+
+body.light-mode {
+    background-color: var(--black-light);
+
+    &.light-mode #moon-icon {
+        display: none;
+    }
+
+    &.light-mode #sun-icon {
+        display: block;
+    }
+
+    &.light-mode time {
+        color: var(--yellow-light);
+    }
+
+    &.light-mode h2 {
+        color: var(--black);
+        opacity: .8;
+    }
+
+    &.light-mode h3 {
+        color: var(--yellow-light);
+    }
+
+    &.light-mode x-letter {
+        color: var(--black);
+        opacity: .8;
+
+        &.correct {
+            color: var(--green);
+        }
+
+        &.incorrect {
+            color: var(--red);
+        }
+    }
+
+    &.light-mode x-word.marked {
+        border-color: var(--red-light);
+    }
+
+    & #reload-button {
+        opacity: .8;
+
+        &:hover {
+            background: var(--gray);
+        }
+
+        & svg {
+            color: var(--black);
+        }
+    }
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    max-width: 800px;
+}
+
+time {
+    color: var(--yellow);
+    font-size: 50px;
+}
+
+input {
+    z-index: -999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    opacity: 0;
+}
+
+p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 8px;
+    margin: 0;
+}
+
+x-letter {
+    color: var(--gray);
+    position: relative;
+    font-size: 20px;
+
+    &.active::before {
+        content: '|';
+        color: var(--yellow);
+        font-size: 20px;
+        position: absolute;
+        left: -58%;
+        animation: 1s blink infinite ease-in-out;
+    }
+
+    &.active.is-last::before {
+        left: 65%;
+    }
+
+    &.correct {
+        color: var(--green);
+    }
+
+    &.incorrect {
+        color: var(--red);
+    }
+}
+
+x-word {
+    border-bottom: 1.5px solid transparent;
+    transition: border-color 0.3s ease-in-out;
+
+    &.marked {
+        border-color: var(--red);
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    25% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0;
+    }
+}
+
+#home {
+    display: none;
+}
+
+#game {
+    display: flex;
+}
+
+#results {
+    display: none;
+}
+
+h2 {
+    font-weight: 400;
+    opacity: .4;
+    margin: 0;
+    font-size: 26px;
+    color: var(--black-light);
+}
+
+h3 {
+    font-weight: 400;
+    margin: 0;
+    font-size: 34px;
+    color: var(--yellow);
+}
+
+#reload-button {
+    background: transparent;
+    border: 0;
+    margin-top: 32px;
+    padding: 10px;
+    opacity: .4;
+    display: inline-block;
+    transition: background 0.3s ease-in-out, opacity 0.3s ease-in-out, scale 0.3s ease-in-out;
+    cursor: pointer;
+    color-scheme: light dark;
+    border-radius: 16px;
+
+    &:hover {
+        background: #444;
+        opacity: 1;
+        scale: 110%;
+    }
+
+    &>svg {
+        color: var(--black-light);
+    }
+}
+
+.div-toggle-mode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 2vh;
+    right: 2vw;
+}
+
+#toggle-mode-button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    border-radius: 16px;
+    transition: scale .2s ease-in-out;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        scale: 110%;
+    }
+}
