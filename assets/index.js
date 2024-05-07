@@ -15,7 +15,14 @@ const url = 'https://raw.githubusercontent.com/javierarce/palabras/master/listad
 
 $toggleModeButton.addEventListener('click', () => {
     $body.classList.toggle('light-mode');
+    const isLightMode = $body.classList.contains('light-mode');
+    if (isLightMode) {
+        localStorage.setItem('lightMode', 'true');
+    } else {
+        localStorage.removeItem('lightMode');
+    }
 });
+
 
 const TEXT = 'quick brown fox jumps over the lazy dog and midudev is trying to clone monkey type for fun and profit using vanilla js for the typing test speed';
 
@@ -40,7 +47,6 @@ async function fetchWords() {
         }
 
         words = randomIndices.map(index => allWords[index]);
-        console.log('Palabras cargadas:', words);
         initGame()
     } catch (error) {
         console.error('Error fetching words:', error);
@@ -58,7 +64,6 @@ function getRandomWords(count) {
 }
 
 function initGame() {
-    console.log("cargó");
     initEvents();
     $game.style.display = 'flex';
     $results.style.display = 'none';
@@ -167,7 +172,6 @@ function onKeyUp() {
 
     const currentWord = $currentWord.innerText.trim()
     $input.maxLength = currentWord.length
-    console.log({ $value: $input.value, currentWord });
 
     const $allLetters = $currentWord.querySelectorAll('x-letter')
     $allLetters.forEach($letter => $letter.classList.remove('correct', 'incorrect'))
@@ -210,3 +214,10 @@ function gameOver() {
     $accuracy.textContent = `${accuracy.toFixed(2)}%`
     $letters.textContent = `${correctLetters} / ${totalLetters}`;
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const isLightMode = localStorage.getItem('lightMode') === 'true';
+    if (isLightMode) {
+        document.body.classList.add('light-mode');
+    }
+});
